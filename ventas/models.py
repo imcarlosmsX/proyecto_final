@@ -1,6 +1,6 @@
 from django.db import models
-
 # Create your models here.
+
 
 class Producto(models.Model):
     codigo_producto = models.AutoField(primary_key=True)
@@ -15,6 +15,9 @@ class Cliente(models.Model):
     apellido = models.CharField(max_length=255)
     direccion = models.TextField()
     telefono = models.CharField(max_length=20)
+    user_name = models.CharField(max_length=50, unique=True, default='')
+    password = models.CharField(max_length=50, default='')
+
 
 class Domiciliario(models.Model):
     codigo_domiciliario = models.AutoField(primary_key=True)
