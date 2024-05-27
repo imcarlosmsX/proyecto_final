@@ -8,6 +8,7 @@ class Producto(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     categoria = models.CharField(max_length=100)
+    imagen = models.URLField(default='')
 
 class Cliente(models.Model):
     codigo_cliente = models.AutoField(primary_key=True)

@@ -29,7 +29,7 @@ export function Login() {
         if (cliente) {
             toast.success("Login exitoso");
             console.log(cliente);
-            navigate('/pedido', { state: { cliente } });
+            navigate('/compra', { state: { cliente } });
 
 
         } else {    

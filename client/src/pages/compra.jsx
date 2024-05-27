@@ -45,8 +45,13 @@ export function Compra() {
                 {productos.map((producto) => (
                     <div key={producto.codigo_producto} className="producto-card">
                         <h2>{producto.nombre}</h2>
+                        <img
+                            src={producto.imagen}
+                            alt={producto.nombre}
+                            className="producto-imagen"
+                        />
                         <p>Precio: ${producto.precio}</p>
-                        <button onClick={() => agregarAlCarrito(producto)}>Agregar al Carrito</button>
+                        <button className='boton-carrito' onClick={() => agregarAlCarrito(producto)}>Agregar al Carrito</button>
                     </div>
                 ))}
             </div>

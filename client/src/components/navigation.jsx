@@ -6,7 +6,7 @@ export function Navigation() {
     return(
     <header>
         <nav>
-            <img src="./images/logo.jpg" alt='xd'/>
+            <img src="./images/logo.jpg" alt='xd' className="home-foto"/>
             <hr />
             <Link to ="/login">Login</Link>
             <hr />

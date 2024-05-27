@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Navigate to='/login'/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/pedido" element={<Compra/>} />
+        <Route path="/compra" element={<Compra/>} />
       </Routes>
       <Toaster/>
     </BrowserRouter>
