@@ -22,7 +22,6 @@ export function Pedido() {
         <div>
             <h1>Pedidos</h1>
             <p>Bienvenido, {cliente.nombre}</p>
-            {/* Aquí puedes renderizar la información del cliente y permitirles hacer un pedido */}
         </div>
     );
 }
