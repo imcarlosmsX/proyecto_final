@@ -31,6 +31,7 @@ class Domiciliario(models.Model):
 class Pedido(models.Model):
     codigo_pedido = models.AutoField(primary_key=True)
     codigo_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    codigo_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     fecha_pedido = models.DateField(auto_now=True)
     estado = models.CharField(max_length=50, default='Pendiente')
     tipo_entrega = models.CharField(max_length=50)
