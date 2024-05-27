@@ -7,6 +7,7 @@ export function Login() {
     const [clientes, setClientes] = useState([]);
     const [usuario, setUsuario] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchClientes = async () => {
@@ -28,7 +29,9 @@ export function Login() {
         if (cliente) {
             toast.success("Login exitoso");
             console.log(cliente);
-            
+            navigate('/pedido', { state: { cliente } });
+
+
         } else {    
             toast.error("Usuario o contraseña incorrectos");
         }

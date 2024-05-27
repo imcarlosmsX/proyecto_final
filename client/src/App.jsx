@@ -3,6 +3,7 @@ import {Register} from './pages/register';
 import {Login} from './pages/login';
 import {Navigation} from './components/navigation';
 import {Toaster} from 'react-hot-toast';
+import {Pedido} from './pages/pedido';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Navigate to='/login'/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/pedido" element={<Pedido/>} />
       </Routes>
       <Toaster/>
     </BrowserRouter>
