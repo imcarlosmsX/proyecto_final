@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { getProductos } from '../api/registro.api';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { createVentas } from '../api/registro.api';
+import { useNavigate } from 'react-router-dom';
 import './compra.css'; // Asegúrate de tener un archivo CSS para los estilos
 
 export function Compra() {
@@ -12,6 +14,7 @@ export function Compra() {
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProductos = async () => {
@@ -31,6 +34,21 @@ export function Compra() {
         setCarrito([...carrito, producto]);
         setTotal(total + parseFloat(producto.precio));
         toast.success(`${producto.nombre} agregado al carrito`);
+    };
+
+    const handleCompra = async () => {
+        try {
+            const venta = {
+                total_venta: total,
+                cod_cliente: cliente.codigo_cliente, // Asegúrate de que cliente tiene un campo `codigo_cliente`
+            };
+            const response = await createVentas(venta);
+            toast.success('Compra realizada con éxito');
+            navigate('/pedido', { state: { venta: response.data } });
+        } catch (error) {
+            console.error('Error al realizar la compra:', error);
+            toast.error('Error al realizar la compra');
+        }
     };
 
     if (!cliente) {
@@ -58,6 +76,10 @@ export function Compra() {
             <div className="carrito-total">
                 <h2>Total: ${total}</h2>
             </div>
+            <div className='center'>
+                <button className='boton-carrito' onClick={handleCompra}>Comprar</button>
+            </div>  
+            
         </div>
     );
 }

@@ -45,4 +45,12 @@
     transition: border-color 0.25s;
     margin-top: 20px;
     color: white;  
+    
+}
+
+.center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

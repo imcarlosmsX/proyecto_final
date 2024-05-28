@@ -30,3 +30,8 @@ class EntregaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entrega
         fields = '__all__'
+
+class VentaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Venta
+        fields = '__all__'

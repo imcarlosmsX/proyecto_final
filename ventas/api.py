@@ -43,3 +43,10 @@ class EntregaViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = EntregaSerializer
+
+class VentaViewSet(viewsets.ModelViewSet):
+    queryset = Venta.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = VentaSerializer

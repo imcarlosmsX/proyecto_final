@@ -52,3 +52,11 @@ class Entrega(models.Model):
     hora_envio = models.TimeField()
     fecha_fin = models.DateField()
     hora_fin = models.TimeField()
+    estado = models.CharField(max_length=50, default='En camino')
+
+class Venta(models.Model):
+    codigo_venta = models.AutoField(primary_key=True)
+    hora_venta = models.TimeField(auto_now=True)
+    fecha_venta = models.DateField(auto_now=True)
+    total_venta = models.DecimalField(max_digits=10, decimal_places=2)
+    cod_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
