@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'bakery.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bakery',
+        'NAME': 'bakery_quilla',
         'USER': 'root',
         'PASSWORD': 'sa1234',
         'HOST': 'localhost',

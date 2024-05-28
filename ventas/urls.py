@@ -9,6 +9,7 @@ router.register('pedidos', PedidoViewSet)
 router.register('detallepedidos', DetallePedidoViewSet)
 router.register('entregas', EntregaViewSet)
 router.register('ventas', VentaViewSet)
+router.register('detalleventas', DetalleVentaViewSet)
 
 urlpatterns = router.urls
 

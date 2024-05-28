@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getProductos } from '../api/registro.api';
+import { getProductos, createVentas, createDetallesVentas } from '../api/registro.api';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { createVentas } from '../api/registro.api';
 import { useNavigate } from 'react-router-dom';
 import './compra.css'; // Asegúrate de tener un archivo CSS para los estilos
 
@@ -31,7 +30,17 @@ export function Compra() {
     }, []);
 
     const agregarAlCarrito = (producto) => {
-        setCarrito([...carrito, producto]);
+        const productoExistente = carrito.find(item => item.producto.codigo_producto === producto.codigo_producto);
+        if (productoExistente) {
+            const carritoActualizado = carrito.map(item =>
+                item.producto.codigo_producto === producto.codigo_producto
+                    ? { ...item, cantidad: item.cantidad + 1 }
+                    : item
+            );
+            setCarrito(carritoActualizado);
+        } else {
+            setCarrito([...carrito, { producto, cantidad: 1 }]);
+        }
         setTotal(total + parseFloat(producto.precio));
         toast.success(`${producto.nombre} agregado al carrito`);
     };
@@ -40,11 +49,25 @@ export function Compra() {
         try {
             const venta = {
                 total_venta: total,
-                cod_cliente: cliente.codigo_cliente, // Asegúrate de que cliente tiene un campo `codigo_cliente`
+                cod_cliente: cliente.codigo_cliente
             };
-            const response = await createVentas(venta);
+            const ventaResponse = await createVentas(venta);
+            const codigo_venta = ventaResponse.data.codigo_venta;
+            
+            const detallesVenta = carrito.map(item => ({
+                venta: codigo_venta,
+                producto: item.producto.codigo_producto,
+                cantidad: item.cantidad
+            }));
+            console.log(ventaResponse.data)
+            console.log(detallesVenta)
+            for (var i = 0; i < detallesVenta.length; i++) {
+                await createDetallesVentas(detallesVenta[i]);
+            }
+            
             toast.success('Compra realizada con éxito');
-            navigate('/pedido', { state: { venta: response.data } });
+            
+            navigate('/pedido', { state: { venta: ventaResponse.data, cliente } });
         } catch (error) {
             console.error('Error al realizar la compra:', error);
             toast.error('Error al realizar la compra');
@@ -75,11 +98,15 @@ export function Compra() {
             </div>
             <div className="carrito-total">
                 <h2>Total: ${total}</h2>
+                <ul>
+                    {carrito.map((item, index) => (
+                        <li key={index}>{item.producto.nombre} x {item.cantidad}</li>
+                    ))}
+                </ul>
             </div>
             <div className='center'>
                 <button className='boton-carrito' onClick={handleCompra}>Comprar</button>
             </div>  
-            
         </div>
     );
 }

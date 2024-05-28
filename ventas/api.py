@@ -50,3 +50,11 @@ class VentaViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = VentaSerializer
+
+class DetalleVentaViewSet(viewsets.ModelViewSet):
+    queryset = DetalleVenta.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = DetalleVentaSerializer
+
