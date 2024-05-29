@@ -35,7 +35,7 @@ class VentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venta
         fields = '__all__'
-        depth=1
+
 
 class DetalleVentaSerializer(serializers.ModelSerializer):
     class Meta:

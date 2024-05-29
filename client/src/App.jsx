@@ -5,6 +5,7 @@ import {Navigation} from './components/navigation';
 import {Toaster} from 'react-hot-toast';
 import {Pedido} from './pages/pedido';
 import {Compra} from './pages/compra';
+import {InfoPedido} from './pages/info_pedido';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/compra" element={<Compra/>} />
         <Route path="/pedido" element={<Pedido/>} />
+        <Route path="/info_pedido" element={<InfoPedido/>} />
       </Routes>
       <Toaster/>
     </BrowserRouter>
