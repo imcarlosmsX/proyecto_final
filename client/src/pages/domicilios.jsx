@@ -60,6 +60,7 @@ export function Domicilios() {
                     <h2>Pedido #{pedido.codigo_pedido}</h2>
                     <p>Tipo de entrega: {pedido.tipo_entrega}</p>
                     <p>Total venta: ${venta.total_venta}</p>
+                    <p>Estado: {pedido.estado}</p>
                     <h3>Productos:</h3>
                     <ul>
                         {productosVenta.map((producto, index) => (
