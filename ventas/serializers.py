@@ -36,10 +36,12 @@ class VentaSerializer(serializers.ModelSerializer):
         model = Venta
         fields = '__all__'
 
-
 class DetalleVentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = DetalleVenta
         fields = '__all__'
-    
 
+class ColaDomiciliariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ColaDomiciliarios
+        fields = '__all__'

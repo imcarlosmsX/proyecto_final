@@ -1,6 +1,4 @@
 from django.db import models
-# Create your models here.
-
 
 class Producto(models.Model):
     codigo_producto = models.AutoField(primary_key=True)
@@ -18,7 +16,6 @@ class Cliente(models.Model):
     telefono = models.CharField(max_length=20)
     user_name = models.CharField(max_length=50, unique=True, default='')
     password = models.CharField(max_length=50, default='')
-
 
 class Domiciliario(models.Model):
     codigo_domiciliario = models.AutoField(primary_key=True)
@@ -49,7 +46,7 @@ class Pedido(models.Model):
     fecha_pedido = models.DateField(auto_now=True)
     estado = models.CharField(max_length=50, default='Pendiente')
     tipo_entrega = models.CharField(max_length=50)
-
+    codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE, null=True, blank=True)
 
 class DetallePedido(models.Model):
     codigo_detalle = models.AutoField(primary_key=True)
@@ -61,10 +58,13 @@ class DetallePedido(models.Model):
 class Entrega(models.Model):
     codigo_entrega = models.AutoField(primary_key=True)
     codigo_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE)
-    fecha_envio = models.DateField()
-    hora_envio = models.TimeField()
-    fecha_fin = models.DateField()
-    hora_fin = models.TimeField()
+    codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE, null=True, blank=True)
+    fecha_envio = models.DateField(auto_now=True)
+    hora_envio = models.TimeField(auto_now=True)
+    hora_fin = models.TimeField(null=True, blank=True)
     estado = models.CharField(max_length=50, default='En camino')
 
+class ColaDomiciliarios(models.Model):
+    codigo_cola = models.AutoField(primary_key=True)
+    codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
