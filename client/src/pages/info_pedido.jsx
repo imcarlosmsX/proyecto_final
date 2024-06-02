@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getProductos, getDetallesVentas, getPedidos } from '../api/registro.api';
+import './compra.css';
 
 export function InfoPedido() {
     const location = useLocation();
@@ -64,12 +65,12 @@ export function InfoPedido() {
     const detallesPedido = detallesVenta.filter(detalle => detalle.venta === venta.codigo_venta);
 
     return (
-        <div>
-            <h1>Información del Pedido</h1>
+        <div className="pedido-info-container">
+            <h1 className="pedido-info-title">Información del Pedido</h1>
             <p>Código del Pedido: {pedidoActual.codigo_pedido}</p>
             <p>Estimado {cliente.nombre}, aquí están los detalles de su pedido:</p>
             <p>Fecha del Pedido: {pedidoActual.fecha_pedido}</p>
-            <p>Estado: {pedidoActual.estado} <button onClick={actualizarEstadoPedido}>Actualizar estado del pedido</button> </p> 
+            <p>Estado: {pedidoActual.estado} <button onClick={actualizarEstadoPedido} className='boton-carrito'>Actualizar estado del pedido</button> </p> 
             <p>Tipo de entrega: {pedidoActual.tipo_entrega}</p>
             <p>Fecha de la venta: {venta.fecha_venta}</p>
             <p>Total a pagar: ${venta.total_venta}</p>
@@ -77,11 +78,11 @@ export function InfoPedido() {
             <p>Teléfono de contacto: {cliente.telefono}</p>
 
             <h2>Productos Adquiridos</h2>
-            <ul>
+            <ul className="productos-list">
                 {detallesPedido.map((detalle, index) => {
                     const producto = productos.find(producto => producto.codigo_producto === detalle.producto);
                     return (
-                        <li key={index}>
+                        <li key={index} className="producto-item">
                             {producto ? `${producto.nombre} - Cantidad: ${detalle.cantidad}` : 'Producto no encontrado'}
                         </li>
                     );

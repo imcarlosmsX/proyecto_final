@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDomiciliarios } from '../api/registro.api';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'; // Hook para la navegación
+import './LoginDomiciliario.css'; // Archivo de estilos CSS
 
 export function LoginDomiciliario() {
     const [domiciliarios, setDomiciliarios] = useState([]);
@@ -36,25 +37,30 @@ export function LoginDomiciliario() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Login Domiciliario</h1>
-            <label>Nombre</label>
-            <input 
-                type="text" 
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)} 
-                required
-            />
-            <hr />
-            <label>Código Domiciliario</label>
-            <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} 
-                required
-            />
-            <hr />
-            <button type="submit">Login</button>
-        </form>
+        <div className="login-domiciliario-container">
+            <form onSubmit={handleSubmit} className="login-domiciliario-form">
+                <h1 className="login-domiciliario-title">Login Domiciliario</h1>
+
+                <label className="login-domiciliario-label">Nombre</label>
+                <input 
+                    type="text" 
+                    value={usuario}
+                    onChange={(e) => setUsuario(e.target.value)} 
+                    className="login-domiciliario-input"
+                    required
+                />
+                <hr />
+                <label className="login-domiciliario-label">Código Domiciliario</label>
+                <input 
+                    type="password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
+                    className="login-domiciliario-input"
+                    required
+                />
+                <hr />
+                <button type="submit" className="login-domiciliario-button">Login</button>
+            </form>
+        </div>
     );
 }

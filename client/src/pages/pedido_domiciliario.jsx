@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getPedidos, getVenta, getDetallesVentas, getProductos, createEntrega, getClientes, updatePedido, updateEntrega, createCola } from '../api/registro.api';
+import { getPedidos, getVenta, getDetallesVentas, getProductos, createEntrega, getClientes, updatePedido, updateEntrega, getCola, createCola, deleteCola } from '../api/registro.api';
 import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
+import './compra.css';
 
 export function PedidoDomiciliario() {
     const location = useLocation();
@@ -13,6 +14,7 @@ export function PedidoDomiciliario() {
     const [clienteActual, setCliente] = useState(null);
     const [entregaIniciada, setEntregaIniciada] = useState(false);
     const [entregaCodigo, setEntregaCodigo] = useState(null);
+    const [enServicio, setEnServicio] = useState(false);
 
     useEffect(() => {
         const fetchPedidoActual = async () => {
@@ -56,6 +58,20 @@ export function PedidoDomiciliario() {
         fetchDetallesYProductos();
     }, [ventaActual]);
 
+    useEffect(() => {
+        const checkServicio = async () => {
+            try {
+                const response = await getCola();
+                const enCola = response.data.some(c => c.codigo_domiciliario === domiciliario.codigo_domiciliario);
+                setEnServicio(enCola);
+            } catch (error) {
+                console.error("Error checking servicio:", error);
+            }
+        };
+
+        checkServicio();
+    }, [domiciliario]);
+
     const handleEmpezarEntrega = async () => {
         if (pedidoActual && !entregaIniciada) {
             try {
@@ -76,7 +92,7 @@ export function PedidoDomiciliario() {
 
     const handlePedidoEntregado = async () => {
         try {
-            await updateEntrega(entregaCodigo, { estado: 'Entregado'});
+            await updateEntrega(entregaCodigo, { estado: 'Entregado' });
             await updatePedido(pedidoActual.codigo_pedido, { estado: 'Entregado' });
             await createCola({ codigo_domiciliario: domiciliario.codigo_domiciliario });
             toast.success("Pedido entregado correctamente");
@@ -85,6 +101,47 @@ export function PedidoDomiciliario() {
         } catch (error) {
             console.error("Error al marcar el pedido como entregado:", error);
             toast.error("Error al marcar el pedido como entregado");
+        }
+    };
+
+    const handleIngresarServicio = async () => {
+        try {
+            // Verificar si hay algún pedido con codigo_domiciliario nulo
+            const response = await getPedidos();
+            const pedidoSinAsignar = response.data.find(p => p.codigo_domiciliario === null);
+            
+            if (pedidoSinAsignar) {
+                // Si hay un pedido sin asignar, asignarlo al domiciliario
+                await updatePedido(pedidoSinAsignar.codigo_pedido, { codigo_domiciliario: domiciliario.codigo_domiciliario });
+                toast.success("Pedido asignado correctamente");
+                setPedidoActual(pedidoSinAsignar);
+            } else {
+                // Si no hay pedidos sin asignar, agregar al domiciliario en la cola
+                await createCola({ codigo_domiciliario: domiciliario.codigo_domiciliario });
+                toast.success("Ingresado en servicio correctamente");
+                setEnServicio(true);
+            }
+        } catch (error) {
+            console.error("Error al ingresar en servicio:", error);
+            toast.error("Error al ingresar en servicio");
+        }
+    };
+    
+
+    const handleSalirServicio = async () => {
+        try {
+            const response = await getCola();
+            const cola = response.data.find(c => c.codigo_domiciliario === domiciliario.codigo_domiciliario);
+            if (cola) {
+                await deleteCola(cola.codigo_cola);
+                toast.success("Salido de servicio correctamente");
+                setEnServicio(false);
+            } else {
+                toast.error("Domiciliario no encontrado en la cola");
+            }
+        } catch (error) {
+            console.error("Error al salir de servicio:", error);
+            toast.error("Error al salir de servicio");
         }
     };
 
@@ -104,7 +161,13 @@ export function PedidoDomiciliario() {
     };
 
     return (
-        <div>
+        <div className="pedido-info-container">
+            {!pedidoActual && !enServicio && (
+                <button onClick={handleIngresarServicio} className='boton-carrito'>Ingresar en servicio</button>
+            )}
+            {enServicio && !pedidoActual && (
+                <button onClick={handleSalirServicio} className='boton-carrito'>Salir de servicio</button>
+            )}
             {pedidoActual ? (
                 <div>
                     <h2>Pedido Actual</h2>
@@ -121,16 +184,16 @@ export function PedidoDomiciliario() {
                         <>
                             <p>Total Venta: ${ventaActual.total_venta}</p>
                             <h3>Productos</h3>
-                            <ul>
+                            <ul className="productos-lista">
                                 {renderProductos()}
                             </ul>
                         </>
                     )}
                     {!entregaIniciada && (
-                        <button onClick={handleEmpezarEntrega}>Iniciar Entrega</button>
+                        <button onClick={handleEmpezarEntrega} className='boton-carrito'>Iniciar Entrega</button>
                     )}
                     {entregaIniciada && (
-                        <button onClick={handlePedidoEntregado}>Pedido Entregado</button>
+                        <button onClick={handlePedidoEntregado} className='boton-carrito'>Pedido Entregado</button>
                     )}
                 </div>
             ) : (
@@ -138,4 +201,5 @@ export function PedidoDomiciliario() {
             )}
         </div>
     );
+    
 }

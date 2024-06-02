@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createPedidos } from '../api/registro.api'; // Ajusta la ruta según tu estructura de archivos
+import './compra.css'; // Asegúrate de tener un archivo CSS para los estilos
+import './Pedido.css'; // Asegúrate de tener un archivo CSS para los estilos
 
 export function Pedido() {
     const location = useLocation();
@@ -33,21 +35,22 @@ export function Pedido() {
     };
 
     return (
-        <div>
-            <h1>Pedido</h1>
+        <div className="pedido-container">
+            <h1 className="pedido-title">Pedido</h1>
             <p>Estimado {cliente.nombre}, aquí están los datos de su pedido:</p>
             <p>Fecha de la venta: {venta.fecha_venta}</p>
             <p>Total a pagar: ${venta.total_venta}</p>
             <p>Dirección de entrega: {cliente.direccion}</p>
             <p>Teléfono de contacto: {cliente.telefono}</p>
 
-            <form onSubmit={handleSubmit}>
-                <label>
+            <form onSubmit={handleSubmit} className="pedido-form">
+                <label className="pedido-label">
                     Tipo de entrega:
                     <select
                         value={tipoEntrega}
                         onChange={(e) => setTipoEntrega(e.target.value)}
                         required
+                        className="pedido-select"
                     >
                         <option value="">Seleccione un tipo de entrega</option>
                         <option value="Recoger en la tienda">Recoger en la tienda</option>
@@ -55,7 +58,7 @@ export function Pedido() {
                     </select>
                 </label>
                 <br />
-                <button type="submit">Ordenar</button>
+                <button type="submit" className='boton-carrito'>Ordenar</button>
             </form>
         </div>
     );

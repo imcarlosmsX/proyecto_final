@@ -34,4 +34,6 @@ export const updateEntrega = (codigo_entrega, data) => axios.patch(`http://127.0
 export const createEntrega = (entrega) => axios.post('http://127.0.0.1:8000/entregas/', entrega)
 
 //para la cola
-export const createCola = (cola) => axios.post('http://127.0.0.1:8000/coladomiciliarios/', cola)
+export const getCola = () => axios.get('http://127.0.0.1:8000/coladomiciliarios/');
+export const createCola = (data) => axios.post('http://127.0.0.1:8000/coladomiciliarios/', data);
+export const deleteCola = (id) => axios.delete(`http://127.0.0.1:8000/coladomiciliarios/${id}/`);

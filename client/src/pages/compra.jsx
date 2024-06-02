@@ -80,8 +80,8 @@ export function Compra() {
 
     return (
         <div>
-            <h1>Pedidos</h1>
-            <p>Bienvenido, {cliente.nombre}</p>
+            <h1>Realiza tu pedido</h1>
+            <p>Hola! {cliente.nombre}</p>
             <div className="productos-grid">
                 {productos.map((producto) => (
                     <div key={producto.codigo_producto} className="producto-card">

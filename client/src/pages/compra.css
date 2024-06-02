@@ -54,3 +54,43 @@
     justify-content: center;
     align-items: center;
 }
+
+.pedido-info-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pedido-info-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.boton-carrito {
+    background-color: #213547;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.boton-carrito:hover {
+    background-color: #1a2e3f;
+}
+
+.productos-list {
+    list-style: none;
+    padding: 0;
+}
+
+.producto-item {
+    margin-bottom: 10px;
+}
+

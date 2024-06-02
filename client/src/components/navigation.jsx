@@ -1,19 +1,17 @@
-import {Link} from 'react-router-dom';
-
-
+import { Link } from 'react-router-dom';
+import './Navigation.css';
 
 export function Navigation() {
-    return(
-    <header>
-        <nav>
-            <img src="./images/logo.jpg" alt='xd' className="home-foto"/>
-            <hr />
-            <Link to ="/login">Login</Link>
-            <hr />
-            <Link to="/register">Register</Link>
-        </nav>
-    </header>
-    
-)
-
+    return (
+        <header>
+            <nav className="navbar">
+                <img src="./images/logo.jpg" alt='logo' className="home-foto" />
+                <div className="nav-links">
+                    <Link to="/login" className="nav-button">Login</Link>
+                    <Link to="/register" className="nav-button">Register</Link>
+                    <Link to="/login-domiciliario" className="nav-button">Domiciliarios</Link>
+                </div>
+            </nav>
+        </header>
+    );
 }

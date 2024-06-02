@@ -1,0 +1,66 @@
+/* LoginDomiciliario.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-domiciliario-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-domiciliario-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.login-domiciliario-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.login-domiciliario-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+    text-align: left;
+}
+
+.login-domiciliario-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-domiciliario-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-domiciliario-button:hover {
+    background-color: #0056b3;
+}
