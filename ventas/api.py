@@ -1,12 +1,12 @@
 from .models import *
 from rest_framework import viewsets, permissions
 from .serializers import *
-from django.db import transaction
+from django.db.models import Count, Sum, DateTimeField
+from django.db.models.functions import TruncDay
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from datetime import timezone
-
 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
@@ -35,6 +35,7 @@ class PedidoViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = PedidoSerializer
+    
     def perform_create(self, serializer):
         # Buscar el domiciliario disponible
         try:
@@ -46,6 +47,18 @@ class PedidoViewSet(viewsets.ModelViewSet):
                 serializer.save(codigo_domiciliario=None)  # No hay domiciliarios disponibles
         except ColaDomiciliarios.DoesNotExist:
             serializer.save(codigo_domiciliario=None)  # No hay domiciliarios disponibles
+
+    @action(detail=False, methods=['get'])
+    def pedidos_por_dia(self, request):
+        pedidos = Pedido.objects.annotate(day=TruncDay('fecha_pedido')).values('day').annotate(count=Count('codigo_pedido')).order_by('day')
+        return Response(pedidos)
+
+    @action(detail=False, methods=['get'])
+    def pedidos_periodo(self, request):
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+        pedidos = Pedido.objects.filter(fecha_pedido__range=[start_date, end_date]).count()
+        return Response({'total_pedidos': pedidos})
 
 class ColaDomiciliariosViewSet(viewsets.ModelViewSet):
     queryset = ColaDomiciliarios.objects.all()
@@ -86,7 +99,6 @@ class EntregaViewSet(viewsets.ModelViewSet):
         
         return Response({'status': 'entregado'}, status=status.HTTP_200_OK)
 
-
 class VentaViewSet(viewsets.ModelViewSet):
     queryset = Venta.objects.all()
     permission_classes = [
@@ -94,10 +106,14 @@ class VentaViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = VentaSerializer
 
+    @action(detail=False, methods=['get'])
+    def popularidad_productos(self, request):
+        productos = DetalleVenta.objects.values('producto__nombre').annotate(total=Sum('cantidad')).order_by('-total')
+        return Response(productos)
+
 class DetalleVentaViewSet(viewsets.ModelViewSet):
     queryset = DetalleVenta.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
     serializer_class = DetalleVentaSerializer
-

@@ -72,7 +72,18 @@ export function PedidoDomiciliario() {
         checkServicio();
     }, [domiciliario]);
 
+    const isLicenciaVencida = (fecha_vencimiento) => {
+        const fechaVencimiento = new Date(fecha_vencimiento);
+        const hoy = new Date();
+        return fechaVencimiento < hoy;
+    };
+
     const handleEmpezarEntrega = async () => {
+        if (isLicenciaVencida(domiciliario.fecha_vencimiento_licencia)) {
+            toast.error("Licencia vencida");
+            return;
+        }
+
         if (pedidoActual && !entregaIniciada) {
             try {
                 const response = await createEntrega({ codigo_pedido: pedidoActual.codigo_pedido, codigo_domiciliario: domiciliario.codigo_domiciliario });
@@ -105,6 +116,11 @@ export function PedidoDomiciliario() {
     };
 
     const handleIngresarServicio = async () => {
+        if (isLicenciaVencida(domiciliario.fecha_vencimiento_licencia)) {
+            toast.error("Licencia vencida");
+            return;
+        }
+
         try {
             // Verificar si hay algún pedido con codigo_domiciliario nulo
             const response = await getPedidos();
@@ -126,7 +142,6 @@ export function PedidoDomiciliario() {
             toast.error("Error al ingresar en servicio");
         }
     };
-    
 
     const handleSalirServicio = async () => {
         try {
@@ -201,5 +216,4 @@ export function PedidoDomiciliario() {
             )}
         </div>
     );
-    
 }

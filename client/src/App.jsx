@@ -9,6 +9,7 @@ import {InfoPedido} from './pages/info_pedido';
 import {Cocina} from './pages/cocina';
 import {LoginDomiciliario} from './pages/login_domiciliario';
 import {PedidoDomiciliario} from './pages/pedido_domiciliario';
+import {Tendencia} from './pages/tendencia';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/cocina" element={<Cocina/>} />
         <Route path="/login-domiciliario" element={<LoginDomiciliario/>} />
         <Route path="/pedido-domiciliario" element={<PedidoDomiciliario/>} />
+        <Route path="/tendencia" element={<Tendencia/>} />
       </Routes>
       <Toaster/>
     </BrowserRouter>
