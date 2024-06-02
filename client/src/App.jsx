@@ -6,7 +6,7 @@ import {Toaster} from 'react-hot-toast';
 import {Pedido} from './pages/pedido';
 import {Compra} from './pages/compra';
 import {InfoPedido} from './pages/info_pedido';
-import {Domicilios} from './pages/domicilios';
+import {Cocina} from './pages/cocina';
 import {LoginDomiciliario} from './pages/login_domiciliario';
 import {PedidoDomiciliario} from './pages/pedido_domiciliario';
 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/compra" element={<Compra/>} />
         <Route path="/pedido" element={<Pedido/>} />
         <Route path="/info_pedido" element={<InfoPedido/>} />
-        <Route path="/domicilios" element={<Domicilios/>} />
+        <Route path="/cocina" element={<Cocina/>} />
         <Route path="/login-domiciliario" element={<LoginDomiciliario/>} />
         <Route path="/pedido-domiciliario" element={<PedidoDomiciliario/>} />
       </Routes>

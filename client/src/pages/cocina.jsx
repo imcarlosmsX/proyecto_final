@@ -3,7 +3,7 @@ import { getPedidos, getVentas, getDetallesVentas, getProductos } from '../api/r
 import { toast } from 'react-hot-toast';
 import './domicilios.css'; // Asegúrate de tener un archivo CSS para los estilos
 
-export function Domicilios() {
+export function Cocina() {
     const [pedidos, setPedidos] = useState([]);
     const [ventas, setVentas] = useState([]);
     const [detallesVentas, setDetallesVentas] = useState([]);
@@ -76,11 +76,11 @@ export function Domicilios() {
 
     return (
         <div>
-            <h1>Domicilios para Entregar</h1>
+            <h1>Cocina: Pedidos</h1>
             <div className="tarjetas-container">
                 {renderTarjetas()}
             </div>
-            <button onClick={actualizarPagina}>Actualizar estado del pedido</button>
+            <button onClick={actualizarPagina} className='boton-carrito'>Actualizar estados de los pedido</button>
         </div>
     );
 }
