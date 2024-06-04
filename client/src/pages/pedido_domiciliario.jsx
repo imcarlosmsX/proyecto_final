@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPedidos, getVenta, getDetallesVentas, getProductos, createEntrega, getClientes, updatePedido, updateEntrega, getCola, createCola, deleteCola } from '../api/registro.api';
+import { getPedidos, getVenta, getDetallesVentas, getProductos, createEntrega, getClientes, getDirecciones, updatePedido, updateEntrega, getCola, createCola, deleteCola } from '../api/registro.api';
 import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 import './compra.css';
@@ -12,6 +12,7 @@ export function PedidoDomiciliario() {
     const [detallesVenta, setDetallesVenta] = useState([]);
     const [productos, setProductos] = useState([]);
     const [clienteActual, setCliente] = useState(null);
+    const [direccionEntrega, setDireccionEntrega] = useState(null);
     const [entregaIniciada, setEntregaIniciada] = useState(false);
     const [entregaCodigo, setEntregaCodigo] = useState(null);
     const [enServicio, setEnServicio] = useState(false);
@@ -30,6 +31,10 @@ export function PedidoDomiciliario() {
                     const clienteResponse = await getClientes();
                     const cliente = clienteResponse.data.find(c => c.codigo_cliente === pedido.codigo_cliente);
                     setCliente(cliente);
+
+                    const direccionesResponse = await getDirecciones();
+                    const direccion = direccionesResponse.data.find(d => d.codigo_direccion === pedido.direccion_entrega);
+                    setDireccionEntrega(direccion);
                 }
             } catch (error) {
                 console.error("Error fetching pedido actual:", error);
@@ -192,7 +197,7 @@ export function PedidoDomiciliario() {
                     {clienteActual && (
                         <>
                             <p>Nombre: {clienteActual.nombre} {clienteActual.apellido}</p>
-                            <p>Dirección: {clienteActual.direccion}</p>
+                            <p>Dirección: {direccionEntrega ? direccionEntrega.direccion : 'Dirección no encontrada'}</p>
                         </>
                     )}
                     {ventaActual && (

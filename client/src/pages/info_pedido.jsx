@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getProductos, getDetallesVentas, getPedidos } from '../api/registro.api';
+import { getProductos, getDetallesVentas, getPedidos, getDirecciones } from '../api/registro.api';
 import './compra.css';
 
 export function InfoPedido() {
@@ -9,42 +9,39 @@ export function InfoPedido() {
     const [detallesVenta, setDetallesVenta] = useState([]);
     const [productos, setProductos] = useState([]);
     const [pedidoActual, setPedidoActual] = useState(null);
+    const [direccion, setDireccion] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Realizar la consulta de los detalles de la venta
                 const detallesVentaResponse = await getDetallesVentas();
                 setDetallesVenta(detallesVentaResponse.data);
 
-                // Realizar la consulta de todos los productos disponibles
                 const productosResponse = await getProductos();
                 setProductos(productosResponse.data);
 
-                // Realizar la consulta de todos los pedidos
                 const pedidosResponse = await getPedidos();
                 const pedidos = pedidosResponse.data;
 
-                // Filtrar el pedido actual
                 const pedidoEncontrado = pedidos.find(pedido_actual => pedido_actual.codigo_pedido === pedido.codigo_pedido);
                 setPedidoActual(pedidoEncontrado);
+
+                if (pedidoEncontrado) {
+                    const direccionesResponse = await getDirecciones();
+                    const direccionEncontrada = direccionesResponse.data.find(dir => dir.codigo_direccion === pedidoEncontrado.direccion_entrega);
+                    setDireccion(direccionEncontrada);
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
 
         fetchData();
-    }, [pedido]); // Agregamos pedido como dependencia para que se actualice cuando cambie
+    }, [pedido, cliente]);
 
     const actualizarEstadoPedido = async () => {
         try {
-            // Aquí deberías enviar la solicitud para actualizar el estado del pedido
-            // Puedes usar la función correspondiente de la API para enviar la solicitud al servidor
-            // Por ejemplo, si tienes una función llamada `actualizarEstadoPedido` en tu API, puedes llamarla aquí
-            // await actualizarEstadoPedido(pedidoActual.codigo_pedido);
             console.log("Estado del pedido actualizado");
-
-            // Recargar la página para mostrar el estado actualizado del pedido
             window.location.reload();
         } catch (error) {
             console.error("Error updating pedido:", error);
@@ -61,7 +58,6 @@ export function InfoPedido() {
         return <div>No se encontraron datos de la venta.</div>;
     }
 
-    // Filtrar los detalles de la venta asociados al pedido actual
     const detallesPedido = detallesVenta.filter(detalle => detalle.venta === venta.codigo_venta);
 
     return (
@@ -74,7 +70,7 @@ export function InfoPedido() {
             <p>Tipo de entrega: {pedidoActual.tipo_entrega}</p>
             <p>Fecha de la venta: {venta.fecha_venta}</p>
             <p>Total a pagar: ${venta.total_venta}</p>
-            <p>Dirección de entrega: {cliente.direccion}</p>
+            <p>Dirección de entrega: {direccion ? direccion.direccion : 'No disponible'}</p>
             <p>Teléfono de contacto: {cliente.telefono}</p>
 
             <h2>Productos Adquiridos</h2>

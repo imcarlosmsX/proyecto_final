@@ -11,6 +11,11 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = '__all__'
 
+class DireccionesClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DireccionesCliente
+        fields = '__all__'
+
 class DomiciliarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Domiciliario

@@ -22,6 +22,13 @@ class ClienteViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = ClienteSerializer
 
+class DireccionesClienteViewSet(viewsets.ModelViewSet):
+    queryset = DireccionesCliente.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = DireccionesClienteSerializer
+
 class DomiciliarioViewSet(viewsets.ModelViewSet):
     queryset = Domiciliario.objects.all()
     permission_classes = [

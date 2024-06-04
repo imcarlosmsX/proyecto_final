@@ -12,10 +12,14 @@ class Cliente(models.Model):
     codigo_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
     apellido = models.CharField(max_length=255)
-    direccion = models.TextField()
     telefono = models.CharField(max_length=20)
     user_name = models.CharField(max_length=50, unique=True, default='')
     password = models.CharField(max_length=50, default='')
+
+class DireccionesCliente(models.Model):
+    codigo_direccion = models.AutoField(primary_key=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='direcciones')
+    direccion = models.TextField()
 
 class Domiciliario(models.Model):
     codigo_domiciliario = models.AutoField(primary_key=True)
@@ -24,7 +28,6 @@ class Domiciliario(models.Model):
     medio_transporte = models.CharField(max_length=50)
     licencia_conduccion = models.CharField(max_length=50)
     fecha_vencimiento_licencia = models.DateField()
-    horario_disponibilidad = models.CharField(max_length=255)
 
 class Venta(models.Model):
     codigo_venta = models.AutoField(primary_key=True)
@@ -46,6 +49,7 @@ class Pedido(models.Model):
     fecha_pedido = models.DateField(auto_now=True)
     estado = models.CharField(max_length=50, default='Pendiente')
     tipo_entrega = models.CharField(max_length=50)
+    direccion_entrega = models.ForeignKey(DireccionesCliente, on_delete=models.CASCADE)
     codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE, null=True, blank=True)
 
 class DetallePedido(models.Model):

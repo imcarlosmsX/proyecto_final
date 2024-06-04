@@ -43,3 +43,7 @@ export const deleteCola = (id) => axios.delete(`http://127.0.0.1:8000/coladomici
 export const getPedidosPorDia = () => axios.get('http://127.0.0.1:8000/pedidos/pedidos_por_dia/');
 export const getPopularidadProductos = () => axios.get('http://127.0.0.1:8000/ventas/popularidad_productos/');
 export const getPedidosPeriodo = (start_date, end_date) => axios.get(`http://127.0.0.1:8000/pedidos/pedidos_periodo/?start_date=${start_date}&end_date=${end_date}`);
+
+//para las direcciones
+export const createDireccionCliente = (direccion) => axios.post('http://127.0.0.1:8000/direcciones/', direccion);
+export const getDirecciones = () => axios.get('http://127.0.0.1:8000/direcciones/')

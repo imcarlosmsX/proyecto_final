@@ -10,6 +10,7 @@ export function Navigation() {
                     <Link to="/login" className="nav-button">Login</Link>
                     <Link to="/register" className="nav-button">Register</Link>
                     <Link to="/login-domiciliario" className="nav-button">Domiciliarios</Link>
+                    <Link to="/tendencia" className="nav-button">Tendencias</Link>
                 </div>
             </nav>
         </header>
