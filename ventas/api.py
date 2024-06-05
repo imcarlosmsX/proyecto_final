@@ -6,7 +6,7 @@ from django.db.models.functions import TruncDay
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
-from datetime import timezone
+from datetime import timezone 
 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
@@ -73,13 +73,6 @@ class ColaDomiciliariosViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = ColaDomiciliariosSerializer
-
-class DetallePedidoViewSet(viewsets.ModelViewSet):
-    queryset = DetallePedido.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = DetallePedidoSerializer
 
 class EntregaViewSet(viewsets.ModelViewSet):
     queryset = Entrega.objects.all()

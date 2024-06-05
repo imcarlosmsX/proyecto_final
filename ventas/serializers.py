@@ -26,11 +26,6 @@ class PedidoSerializer(serializers.ModelSerializer):
         model = Pedido
         fields = '__all__'
 
-class DetallePedidoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DetallePedido
-        fields = '__all__'
-
 class EntregaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entrega

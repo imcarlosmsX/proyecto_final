@@ -52,13 +52,6 @@ class Pedido(models.Model):
     direccion_entrega = models.ForeignKey(DireccionesCliente, on_delete=models.CASCADE)
     codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE, null=True, blank=True)
 
-class DetallePedido(models.Model):
-    codigo_detalle = models.AutoField(primary_key=True)
-    codigo_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    codigo_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
-    precio_total = models.DecimalField(max_digits=10, decimal_places=2)
-
 class Entrega(models.Model):
     codigo_entrega = models.AutoField(primary_key=True)
     codigo_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)

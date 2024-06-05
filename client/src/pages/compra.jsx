@@ -81,7 +81,7 @@ export function Compra() {
     return (
         <div>
             <h1>Realiza tu pedido</h1>
-            <p>Hola! {cliente.nombre}</p>
+            <p>Hola! {cliente.nombre} {cliente.apellido} </p>
             <div className="productos-grid">
                 {productos.map((producto) => (
                     <div key={producto.codigo_producto} className="producto-card">
