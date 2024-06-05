@@ -1,6 +1,6 @@
 # Proyecto Final - Bakery Quilla
 
-Este proyecto es una aplicación web para la administración de una panadería llamada "Bakery Quilla". Incluye un backend desarrollado con Django y un frontend utilizando Node.js.
+Este proyecto es una aplicación web para la administración de una panadería llamada "Bakery Quilla". Incluye un backend desarrollado con Django y un frontend utilizando Node.js en react.
 
 ## Pasos Preliminares
 
