@@ -139,7 +139,7 @@ export function PedidoDomiciliario() {
             } else {
                 // Si no hay pedidos sin asignar, agregar al domiciliario en la cola
                 await createCola({ codigo_domiciliario: domiciliario.codigo_domiciliario });
-                toast.success("Ingresado en servicio correctamente");
+                toast.success("Has ingresado en servicio correctamente");
                 setEnServicio(true);
             }
         } catch (error) {
@@ -154,7 +154,7 @@ export function PedidoDomiciliario() {
             const cola = response.data.find(c => c.codigo_domiciliario === domiciliario.codigo_domiciliario);
             if (cola) {
                 await deleteCola(cola.codigo_cola);
-                toast.success("Salido de servicio correctamente");
+                toast.success("Has salido de servicio correctamente");
                 setEnServicio(false);
             } else {
                 toast.error("Domiciliario no encontrado en la cola");
