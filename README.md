@@ -54,5 +54,4 @@ Este proyecto es una aplicación web para la administración de una panadería l
 - [HeidiSQL](https://www.heidisql.com/)
 - [Python](https://www.python.org/)
 
-## Estructura del Proyecto
 
