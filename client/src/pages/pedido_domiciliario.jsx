@@ -195,11 +195,12 @@ export function PedidoDomiciliario() {
                     <p>Estado: {pedidoActual.estado}</p>
                     <h3>Cliente</h3>
                     {clienteActual && (
-                        <>
-                            <p>Nombre: {clienteActual.nombre} {clienteActual.apellido}</p>
-                            <p>Dirección: {direccionEntrega ? direccionEntrega.direccion : 'Dirección no encontrada'}</p>
-                        </>
-                    )}
+                    <>
+                    <p>Nombre: {clienteActual.nombre} {clienteActual.apellido}</p>
+                    <p>Dirección: {direccionEntrega ? direccionEntrega.direccion : 'Dirección no encontrada'}</p>
+                    <p>Comentario: {pedidoActual.comentario || 'No hay comentario'}</p>
+                    </>
+                )}
                     {ventaActual && (
                         <>
                             <p>Total Venta: ${ventaActual.total_venta}</p>

@@ -12,6 +12,7 @@ export function Pedido() {
     const [direcciones, setDirecciones] = useState([]);
     const [nuevaDireccion, setNuevaDireccion] = useState('');
     const [agregarNuevaDireccion, setAgregarNuevaDireccion] = useState(false);
+    const [comentario, setComentario] = useState(''); // Estado para el comentario
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,33 +36,32 @@ export function Pedido() {
         return <div>No se encontraron datos del cliente.</div>;
     }
 
-// Parte relevante del handleSubmit en Pedido.jsx
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        let direccionFinal = direccion;
-        if (agregarNuevaDireccion && nuevaDireccion) {
-            const resNuevaDireccion = await createDireccionCliente({
-                cliente: cliente.codigo_cliente,
-                direccion: nuevaDireccion
-            });
-            direccionFinal = resNuevaDireccion.data.codigo_direccion;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let direccionFinal = direccion;
+            if (agregarNuevaDireccion && nuevaDireccion) {
+                const resNuevaDireccion = await createDireccionCliente({
+                    cliente: cliente.codigo_cliente,
+                    direccion: nuevaDireccion
+                });
+                direccionFinal = resNuevaDireccion.data.codigo_direccion;
+            }
+            const pedido = {
+                codigo_cliente: cliente.codigo_cliente,
+                codigo_venta: venta.codigo_venta,
+                tipo_entrega: tipoEntrega,
+                direccion_entrega: direccionFinal,
+                comentario: comentario // Agregar comentario al pedido
+            };
+            const response = await createPedidos(pedido);
+            const pedidoCreado = response.data;
+
+            navigate('/info_pedido', { state: { pedido: pedidoCreado, cliente, venta } });
+        } catch (error) {
+            console.error("Error creando el pedido:", error);
         }
-        const pedido = {
-            codigo_cliente: cliente.codigo_cliente,
-            codigo_venta: venta.codigo_venta,
-            tipo_entrega: tipoEntrega,
-            direccion_entrega: direccionFinal, // Aquí se guarda la dirección
-        };
-        const response = await createPedidos(pedido);
-        const pedidoCreado = response.data;
-
-        navigate('/info_pedido', { state: { pedido: pedidoCreado, cliente, venta } });
-    } catch (error) {
-        console.error("Error creando el pedido:", error);
-    }
-};
-
+    };
 
     return (
         <div className="pedido-container">
@@ -123,6 +123,17 @@ const handleSubmit = async (e) => {
                         <option value="Recoger en la tienda">Recoger en la tienda</option>
                         <option value="Domicilio">Domicilio</option>
                     </select>
+                </label>
+                <br />
+                <label className="pedido-label">
+                    <textarea
+                        value={comentario}
+                        onChange={(e) => setComentario(e.target.value)}
+                        className="pedido-textarea"
+                        rows="4"
+                        cols="50"
+                        placeholder="Escriba aquí sus comentarios extras..."
+                    />
                 </label>
                 <br />
                 <button type="submit" className='boton-carrito'>Ordenar</button>

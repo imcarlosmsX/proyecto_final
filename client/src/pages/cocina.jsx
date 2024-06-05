@@ -61,6 +61,7 @@ export function Cocina() {
                     <p>Tipo de entrega: {pedido.tipo_entrega}</p>
                     <p>Total venta: ${venta.total_venta}</p>
                     <p>Estado: {pedido.estado}</p>
+                    <p>Comentario: {pedido.comentario || 'No hay comentarios'}</p> {/* Mostrar el comentario aquí */}
                     <h3>Productos:</h3>
                     <ul>
                         {productosVenta.map((producto, index) => (
@@ -80,7 +81,7 @@ export function Cocina() {
             <div className="tarjetas-container">
                 {renderTarjetas()}
             </div>
-            <button onClick={actualizarPagina} className='boton-carrito'>Actualizar estados de los pedido</button>
+            <button onClick={actualizarPagina} className='boton-carrito'>Actualizar estados de los pedidos</button>
         </div>
     );
 }

@@ -51,6 +51,7 @@ class Pedido(models.Model):
     tipo_entrega = models.CharField(max_length=50)
     direccion_entrega = models.ForeignKey(DireccionesCliente, on_delete=models.CASCADE)
     codigo_domiciliario = models.ForeignKey(Domiciliario, on_delete=models.CASCADE, null=True, blank=True)
+    comentario = models.TextField(null=True, blank=True)
 
 class Entrega(models.Model):
     codigo_entrega = models.AutoField(primary_key=True)

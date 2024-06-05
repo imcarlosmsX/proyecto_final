@@ -72,6 +72,7 @@ export function InfoPedido() {
             <p>Total a pagar: ${venta.total_venta}</p>
             <p>Dirección de entrega: {direccion ? direccion.direccion : 'No disponible'}</p>
             <p>Teléfono de contacto: {cliente.telefono}</p>
+            <p>Comentario: {pedidoActual.comentario || 'No hay comentarios'}</p> {/* Mostrar el comentario aquí */}
 
             <h2>Productos Adquiridos</h2>
             <ul className="productos-list">
