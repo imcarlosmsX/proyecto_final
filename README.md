@@ -1,24 +1,58 @@
-# proyecto_final
+# Proyecto Final - Bakery Quilla
 
-Pasos preliminares
-Crear base de datos llamada "bakery_quilla" desde HeidiSQL
-en consola:
-pip install -r requirements.txt
-py manage.py makemigrations ventas
-py manage.py migrate
+Este proyecto es una aplicación web para la administración de una panadería llamada "Bakery Quilla". Incluye un backend desarrollado con Django y un frontend utilizando Node.js.
 
+## Pasos Preliminares
 
-Para el backend
-en consola:
-py manage.py runserver
+### Crear la Base de Datos
 
+1. Abre HeidiSQL.
+2. Crea una base de datos llamada `bakery_quilla`.
 
-Para el frontend
-cd client
-npm run dev
+### Instalación de Dependencias
 
-Requirimientos adicionales:
-node.js
-MariaDB
-HeidiSQL
-python
+1. Abre una consola y navega hasta el directorio raíz del proyecto.
+2. Instala las dependencias de Python ejecutando:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Configuración del Backend
+
+1. Realiza las migraciones necesarias para la aplicación `ventas`:
+
+    ```bash
+    py manage.py makemigrations ventas
+    py manage.py migrate
+    ```
+
+2. Inicia el servidor de desarrollo de Django:
+
+    ```bash
+    py manage.py runserver
+    ```
+
+## Configuración del Frontend
+
+1. Navega al directorio del cliente:
+
+    ```bash
+    cd client
+    ```
+
+2. Inicia el servidor de desarrollo de Node.js:
+
+    ```bash
+    npm run dev
+    ```
+
+## Requerimientos Adicionales
+
+- [Node.js](https://nodejs.org/)
+- [MariaDB](https://mariadb.org/)
+- [HeidiSQL](https://www.heidisql.com/)
+- [Python](https://www.python.org/)
+
+## Estructura del Proyecto
+
